@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour {
     public Text txtEscapedEnemies;
     public Transform enemyHealthBars;
     public GameObject enemyHealthBarPrefab;
+    public GameObject centerWindow;
+
 
     void Awake()
     {
@@ -79,6 +81,23 @@ public class UIManager : MonoBehaviour {
         healthBar.GetComponent<EnemyHealthBar>().enemy = enemy;
     }
 
+    public void ShowCenterWindow(string text)
+    {
+        centerWindow.transform.Find("TxtWave").GetComponent<Text>().
+        text = text;
+        StartCoroutine(EnableAndDisableCenterWindow());
+    }
+
+    private IEnumerator EnableAndDisableCenterWindow()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(.4f);
+            centerWindow.SetActive(true);
+            yield return new WaitForSeconds(.4f);
+            centerWindow.SetActive(false);
+        }
+    }
 
 
 }
