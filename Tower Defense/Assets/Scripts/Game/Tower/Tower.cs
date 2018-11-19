@@ -108,4 +108,9 @@ public class Tower : MonoBehaviour {
 
     }
 
+    public void ShowTowerInfo()
+    {
+        UIManager.Instance.ShowTowerInfowindow(this);
+    }
+
 }
