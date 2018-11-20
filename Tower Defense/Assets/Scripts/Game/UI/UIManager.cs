@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour {
     public void CreateHealthBarForEnemy(Enemy enemy)
     {
         GameObject healthBar = Instantiate(enemyHealthBarPrefab);
-        healthBar.transform.SetParent(enemyHealthBars, true);
+        healthBar.transform.SetParent(enemyHealthBars, false);
         healthBar.GetComponent<EnemyHealthBar>().enemy = enemy;
     }
 
