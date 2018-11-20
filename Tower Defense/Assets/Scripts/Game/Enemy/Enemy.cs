@@ -40,6 +40,9 @@ public class Enemy : MonoBehaviour
     public int pathIndex = 0;
 
     private int wayPointIndex = 0;
+    public float timeEnemyStaysFrozenInSeconds = 2f;
+    public bool frozen;
+    private float freezeTimer;
 
     private void Start()
     {
@@ -80,6 +83,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Freeze()
+    {
+        if (!frozen)
+        {
+            frozen = true;
+            moveSpeed /= 2;
+        }
+    }
+    
+    void Defrost()
+    {
+        freezeTimer = 0f;
+        frozen = false;
+        moveSpeed *= 2;
+    }
+
     void Update()
     {
         if (wayPointIndex < WayPointManager.Instance.Paths[pathIndex].WayPoints.Count)
@@ -90,6 +109,17 @@ public class Enemy : MonoBehaviour
         {
             OnGotToLastWayPoint();
         }
+
+        if (frozen)
+        {
+            freezeTimer += Time.deltaTime;
+            
+            if (freezeTimer >= timeEnemyStaysFrozenInSeconds)               
+            {
+                Defrost();
+            }
+        }
+
     }
 
     //Create The Movement for the Enemies
